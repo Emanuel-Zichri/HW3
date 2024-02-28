@@ -52,87 +52,6 @@ function updateAnimalDetails(animal) {
   );
 }
 
-function feedAnimal() {
-  const coins = parseInt(localStorage.getItem("coins")) || 0;
-  // בדיקה האם יש מספיק מטבעות להאכיל את החיה
-  if (coins < 2) {
-    // אם אין מספיק מטבעות, הוסף הודעת אזהרה
-    alert(
-      "Not enough coins to feed the animal! You've been eaten by the predator."
-    );
-    // מחיקת המבקר מהלוקל סטורג' והצגת הודעה
-    localStorage.removeItem("visitor");
-    return;
-  }
-
-  // אם יש מספיק מטבעות, עדכן את מספר המטבעות ועדכן את הלוקל סטורג'
-  localStorage.setItem("coins", coins - 2);
-  // הצגת הודעת תודה
-  alert("Thank you for feeding me!");
-}
-
-const selectedVisitor = localStorage.getItem("selectedVisitor");
-const visitorsData = JSON.parse(localStorage.getItem("visitors"));
-const selectedUserInfo = document.getElementById("selectedUserInfo");
-
-if (selectedVisitor) {
-  const selectedUser = visitorsData.find(
-    (visitor) => visitor.name === selectedVisitor
-  );
-  if (selectedUser) {
-    const navHTML = `
-      <span>Hello Visitor: ${selectedUser.name} </span>
-      <span>Your coin balance:  ${selectedUser.coins}</span>
-    `;
-    selectedUserInfo.innerHTML = navHTML;
-  }
-}
-
-// כפתור ניקוי - מתבצעת פעולת ניקוי הלוקל סטורג'
-const resetButton = document.getElementById("resetButton");
-resetButton.addEventListener("click", () => {
-  localStorage.clear();
-  location.reload(); // טעינה מחדש של העמוד לרענון המידע
-});
-
-// יצירת הרשימת נפתחת של המבקרים האפשריים
-const visitorDropdown = document.getElementById("visitorDropdown");
-if (visitorsData) {
-  visitorsData.forEach((visitor) => {
-    const option = document.createElement("option");
-    option.textContent = visitor.name;
-    visitorDropdown.appendChild(option);
-  });
-}
-document.addEventListener("DOMContentLoaded", function () {
-  const userNav = document.getElementById("selectedUserInfo");
-  const visitorsData = JSON.parse(localStorage.getItem("visitors"));
-
-  // בדיקה אם יש מבקר מחובר
-  const selectedVisitor = localStorage.getItem("selectedVisitor");
-  if (!selectedVisitor) {
-    const loginNav = document.createElement("span");
-    loginNav.innerHTML = `
-          <span>No visitor is logged in.&nbsp; </span>
-          <a href="login.html">Click here to log in</a>
-      `;
-    selectedUserInfo.appendChild(loginNav);
-  } else {
-    // יצירת ניווט עבור המבקר המחובר
-    const selectedUser = visitorsData.find(
-      (visitor) => visitor.name === selectedVisitor
-    );
-    if (selectedUser) {
-      const navHTML = `
-              <span>Hello Visitor: ${selectedUser.name}</span>
-              <br>
-              <span>Your coin balance:  ${selectedUser.coins}</span>
-          `;
-      selectedUserInfo.innerHTML = navHTML;
-    }
-  }
-});
-
 function renderAnimal() {
   //הציגו את החיה שאליה עברתם מעמוד גן החיות ששמורה בלוקל סטורג'
   // רנדרו את פרטי החיה לתוך האלמנטים המתאימים בהתאם לשדה הספציפי
@@ -155,3 +74,41 @@ function visitorGotEaten() {
 function animalEscaped() {
   //ממשו את הלוגיקה של חיה שבורחת מגן החיות
 }
+
+function feedAnimal() {
+  const coinsBefore = parseInt(localStorage.getItem("coins")) || 0;
+  if (coinsBefore >= 2) {
+    localStorage.setItem("coins", coinsBefore - 2);
+    const coinsAfter = parseInt(localStorage.getItem("coins"));
+    updateCoinsInNav(coinsAfter); // עדכון של כמות המטבעות ב-NAV
+    console.log("Coins before feeding:", coinsBefore);
+    console.log("Coins after feeding:", coinsAfter);
+    alert("Thank you for feeding me!");
+  } else {
+    alert("You don't have enough coins. The animal will attack you!");
+    visitorGotEaten();
+  }
+}
+
+function updateCoinsInNav(coins) {
+  const selectedUserInfo = document.getElementById("selectedUserInfo");
+  selectedUserInfo.innerHTML = `
+    <span>Hello Visitor: ${localStorage.getItem("selectedVisitor")} </span>
+    <span>Your coin balance:  ${coins}</span>
+  `;
+}
+
+document.getElementById("feed-animal").addEventListener("click", feedAnimal);
+
+function visitorGotEaten() {
+  localStorage.removeItem("visitor");
+  alert("You have been attacked by the animal!");
+}
+
+document.getElementById("feed-animal").addEventListener("click", feedAnimal);
+
+document.addEventListener("DOMContentLoaded", function () {
+  if (!localStorage.getItem("coins")) {
+    localStorage.setItem("coins", 50);
+  }
+});

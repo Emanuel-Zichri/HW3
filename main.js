@@ -1,5 +1,6 @@
 // מערכים גלובלים שישמשו אותנו בכל העמודים
 generateDataset();
+
 function generateDataset() {
   let visitors = [
     {
@@ -175,10 +176,16 @@ function generateDataset() {
   console.log(visitors);
 }
 
+function updateCoinsInNav(coins) {
+  const selectedUserInfo = document.getElementById("selectedUserInfo");
+  selectedUserInfo.innerHTML = `
+    <span>Hello Visitor: ${localStorage.getItem("selectedVisitor")} </span>
+    <span>Your coin balance:  ${coins}</span>
+  `;
+}
 generateDataset();
 
-//********************** */
 function logout() {
-  //ממשו את הלוגיקה שמתנתקת מאורח מחובר
-  // שימו לב לנקות את השדה המתאים בלוקל סטורג'
+  localStorage.removeItem("selectedVisitor");
+  location.reload();
 }

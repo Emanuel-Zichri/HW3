@@ -148,7 +148,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (selectedUser) {
       const navHTML = `
               <span>Hello Visitor: ${selectedUser.name}</span>
-              <br>
+            
               <span>Your coin balance:  ${selectedUser.coins}</span>
           `;
       selectedUserInfo.innerHTML = navHTML;
