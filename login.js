@@ -1,19 +1,71 @@
-function loginAsVisitor(visitorName) {
-  // תממשו את הלוגיקה של בחירת אורח שנכנס לגן החיות
-  // שמרו את האורח שבחרתם, בלוקל סטורג' כך שבכל העמודים נדע מי האורח הנוכחי
+const visitorsData = JSON.parse(localStorage.getItem("visitors"));
+
+if (visitorsData && visitorsData.length > 0) {
+  visitorsData.forEach((visitor) => {
+    createVisitorCard(visitor);
+  });
+} else {
+  // אם אין מבקרים, נוסיף הודעה או פעולה נוספת בהתאם לדרישות
+  const visitorContainer = document.getElementById("visitor-container");
+  const message = document.createElement("p");
+  message.textContent = "no aviable visitors";
+  visitorContainer.appendChild(message);
 }
-const getProductHTMLCard = (visitor) => {
-  const template = `
-      <div class="card" style="min-height: 360px;" >
-        <img class="card-img-top" src="${product.thumbImage}" alt="${visitor.name}"/>
-        <div class="card-body">
-          <p class="card-text">${visitor.name}</p>
-          <p class="card-text">${visitor.coins}</p>
-        </div>
-      </div>`;
-  const wrapper = document.createElement("div");
-  wrapper.className = "visitor-card";
-  wrapper.innerHTML = template;
-  //wrapper.addEventListener("click", () => handleProductClick(product));
-  return wrapper;
-};
+
+function createVisitorCard(visitor) {
+  const visitorContainer = document.getElementById("visitor-container");
+  const card = document.createElement("div");
+
+  card.classList.add("visitor-card");
+
+  const name = document.createElement("h2");
+  name.textContent = visitor.name;
+
+  const coins = document.createElement("p");
+  coins.textContent = `coins: ${visitor.coins}`;
+
+  const image = document.createElement("img");
+  image.src = "ash katcham.jpg";
+  card.appendChild(name);
+  card.appendChild(coins);
+  card.appendChild(image);
+
+  visitorContainer.appendChild(card);
+
+  card.addEventListener("click", () => {
+    loginAsVisitor(visitor.name);
+  });
+}
+
+function loginAsVisitor(visitorName) {
+  localStorage.setItem("selectedVisitor", visitorName);
+  window.location.href = "zoo.html";
+}
+
+function search() {
+  const nameSearchBox = document
+    .getElementById("visitorNameInput")
+    .value.toUpperCase();
+  const visitorCards = document.querySelectorAll(".visitor-card");
+
+  visitorCards.forEach((visitorCard) => {
+    const visitorName = visitorCard
+      .querySelector("h2")
+      .textContent.toUpperCase();
+
+    if (visitorName.includes(nameSearchBox)) {
+      visitorCard.style.display = "";
+    } else {
+      visitorCard.style.display = "none";
+    }
+  });
+}
+// בדיקה אם כבר קיים אורח נבחר
+const selectedVisitor = localStorage.getItem("selectedVisitor");
+if (selectedVisitor) {
+  // אם כבר קיים אורח נבחר, הצג הודעת אזהרה
+  const selectedGuestMessage = document.getElementById("selectedGuestMessage");
+  selectedGuestMessage.style.display = "block";
+} else {
+  electedGuestMessage.style.display = "none";
+}

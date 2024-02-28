@@ -11,22 +11,19 @@
   <body>
     <h1>Login</h1>
 
-    <div id="selectedGuestMessage" style="display: none">
+    <div id="selectedGuestMessage">
       <p>כבר קיים אורח נבחר. האם ברצונך להתנתק?</p>
       <button id="disconnectButton">התנתק</button>
     </div>
 
     <input
       type="text"
-      id="guestSearchInput"
+      id="visitorNameInput"
+      oninput="search()"
       placeholder="Search visitor by name"
     />
+    <div class="visitors-cards" id="visitor-container"></div>
 
-    <!-- כרטיסיות של האורחים -->
-    <section id="visitors">
-      <!-- כאן ייצגו כרטיסיות האורחים -->
-    </section>
-    <!-- צרו את הטופס בחירת אורח כאן מעל הסקריפט -->
     <script src="./login.js"></script>
   </body>
 </html>

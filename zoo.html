@@ -6,9 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Zoo</title>
     <script src="./main.js"></script>
-    <link rel="stylesheet" href="zoo_style.css" />
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <nav>
+      <div id="selectedUserInfo"></div>
+      <div class="dropdown">
+        <button id="dropdown-btn" class="btn-nav">דרופדאון</button>
+        <div class="dropdown-content" id="visitorDropdown">
+          <!-- כאן יופיע רשימת האורחים האפשריים -->
+        </div>
+        <button id="resetButton" class="btn-nav">Clear</button>
+      </div>
+    </nav>
+
     <h1>Zoo</h1>
 
     <div id="filters">
@@ -24,72 +35,17 @@
         <option value="sea">Sea</option>
         <option value="land">Land</option>
       </select>
+      <button onclick="filterAnimals()">Apply Filters</button>
     </div>
     <div id="filters">
-      <input type="text" id="searchInput" placeholder="Search animal by name" />
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Search animal by name"
+        onkeyup="search()"
+      />
     </div>
-
-    <section id="animal-cards">
-      <!-- Animals cards will be displayed here -->
-
-      <div class="animal-card">
-        <h2>Lion</h2>
-        <img src="/lion.avif" alt="lion_img" />
-      </div>
-      <div class="animal-card">
-        <h2>Elephant</h2>
-        <img
-          src="/cute-elephant-cartoon-character_1308-146090.avif"
-          alt="lion_img"
-        />
-      </div>
-      <div class="animal-card">
-        <h2>Giraffe</h2>
-        <img src="/cute-giraffe-flat-style_1308-114113.avif" alt="lion_img" />
-      </div>
-      <div class="animal-card">
-        <h2>Tiger</h2>
-        <img
-          src="/kawaii-style-tiger-character-cartoon-children-books-greeting-cards-invitations_593490-28.avif"
-          alt="lion_img"
-        />
-      </div>
-      <div class="animal-card">
-        <h2>Monkey</h2>
-        <img
-          src="/cartoon-baby-monkey-hanging-tree-branch_29190-4769.avif"
-          alt="lion_img"
-        />
-      </div>
-      <div class="animal-card">
-        <h2>Kangaroo</h2>
-        <img
-          src="/cartoon-happy-kangaroo-isolated-white-background_29190-4464.avif"
-          alt="lion_img"
-        />
-      </div>
-      <div class="animal-card">
-        <h2>Penguin</h2>
-        <img
-          src="/cartoon-penguin-sliding-water_29190-4674.avif"
-          alt="penguin_img"
-        />
-      </div>
-      <div class="animal-card">
-        <h2>Zebra</h2>
-        <img
-          src="/cute-baby-zebra-posing-isolated-white-background_29190-4726.avif"
-          alt="zebra_img"
-        />
-      </div>
-      <div class="animal-card">
-        <h2>Cheetha</h2>
-        <img
-          src="/hand-drawn-cartoon-cheetah-illustration_23-2150497704.avif"
-          alt="Cheetha_img"
-        />
-      </div>
-    </section>
+    <section id="animal-cards"></section>
     <script src="zoo.js"></script>
   </body>
 </html>

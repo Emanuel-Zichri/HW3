@@ -5,24 +5,35 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Animal</title>
+    <link rel="stylesheet" href="style.css" />
     <script src="./main.js"></script>
+    <script src="./animal.js"></script>
   </head>
   <body>
+    <nav>
+      <div id="selectedUserInfo"></div>
+      <div class="dropdown">
+        <button id="dropdown-btn" class="btn-nav">דרופדאון</button>
+        <div class="dropdown-content" id="visitorDropdown">
+          <!-- כאן יופיע רשימת האורחים האפשריים -->
+        </div>
+        <button id="resetButton" class="btn-nav">Clear</button>
+      </div>
+    </nav>
     <div>
       <div id="image">
         <!-- show here the animal image -->
       </div>
       <div>
-        <h1 id="name"></h1>
-        <p id="weight"></p>
-        <p id="height"></p>
-        <p id="color"></p>
-        <p id="habitat"></p>
-        <p id="isPredator"></p>
-        <button id="feed-animal">Feed me</button>
+        <h1 id="name">name:</h1>
+        <p id="weight">weight:</p>
+        <p id="height">height:</p>
+        <p id="color">color:</p>
+        <p id="habitat">habitat:</p>
+        <p id="isPredator">isPredator:</p>
+        <button id="feed-animal" class="feed-btn">Feed me</button>
       </div>
     </div>
     <div id="related-animals"></div>
-    <script src="./animal.js"></script>
   </body>
 </html>

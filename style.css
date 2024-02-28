@@ -1,11 +1,17 @@
-/* body {
-  background-image: url("/m0xs_h1ci_210426.jpg");
-  background-size: cover; 
-  background-repeat: no-repeat; 
+body {
+  background-image: url(/jungle2.jpg);
+  background-size: cover; /* כך שהתמונה תכסה את כל הדף */
+  background-repeat: no-repeat; /* לא לחזור על התמונה */
   background-position: center;
   background-size: 100% 100%;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-} */
+
+  font-weight: bold;
+  text-align: center;
+  background-color: #f7f7f7;
+  margin: 0;
+  padding: 0;
+}
 .container {
   display: flex;
   justify-content: center;
@@ -56,6 +62,25 @@
   text-align: center;
   text-transform: uppercase; /* הוספת אותיות גדולות */
 }
+.visitors-cards {
+  display: flex;
+  flex-wrap: wrap; /* זה מאפשר לכרטיסיות להיות אחת ליד השנייה */
+  justify-content: center; /* ממריץ את הכרטיסיות להיות באמצע */
+}
+
+.visitor-card {
+  background-color: #d8f8cd;
+  border-radius: 8px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 10px;
+  padding: 20px;
+  width: 250px;
+  transition: transform 0.3s ease;
+}
+.visitor-card:hover {
+  transform: translateY(-5px);
+}
+
 h1 {
   color: #0b2401;
   font-weight: bold;
@@ -115,4 +140,183 @@ h1 {
   height: 300px;
   border-radius: 5px;
   margin-top: 10px;
+}
+
+.modal {
+  display: none; /* מוסתר בתחילה */
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4); /* עימוות אפור כדי להדגיש את העמוד */
+}
+
+/* סגנון עבור תוכן העמוד הקופץ */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+/* סגנון עבור סגירת העמוד */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+nav {
+  background-color: #bbde7e;
+  color: white;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+}
+
+.btn-nav {
+  background-color: #595c4e;
+  color: white;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  border-radius: 7px;
+}
+
+#selectedUserInfo {
+  display: flex;
+  flex-direction: column;
+  font-size: 25px;
+}
+
+/* .dropdown {
+  position: relative;
+  display: inline-block;
+  right: 700px;
+} */
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #333;
+  min-width: 160px;
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: white;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+  color: #f7f6f6;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+h1 {
+  color: #0b2401;
+  font-weight: bold;
+  font-size: 50px;
+}
+
+#filters {
+  margin-bottom: 20px;
+}
+
+#filters label {
+  margin-right: 10px;
+  font-size: 20px;
+}
+
+#filters input[type="text"],
+#filters select {
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-right: 10px;
+}
+
+#filterByName {
+  margin-bottom: 20px;
+  right: 10px;
+}
+
+#animal-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.animal-card {
+  background-color: #d8f8cd;
+  border-radius: 8px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 10px;
+  padding: 20px;
+  width: 250px;
+  transition: transform 0.3s ease;
+}
+
+.animal-card:hover {
+  transform: translateY(-5px);
+}
+
+.animal-card h2 {
+  margin-top: 0;
+  font-size: 24px;
+  color: #333;
+}
+
+.animal-card img {
+  width: 200px;
+  height: 300px;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+#image {
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+}
+#details {
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  border-radius: 10px;
+  color: white;
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+#feed-animal {
+  background-color: #595c4e;
+  color: white;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  border-radius: 7px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
