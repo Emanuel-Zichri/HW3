@@ -8,24 +8,26 @@ if (visitorsData && visitorsData.length > 0) {
   // אם אין מבקרים, נוסיף הודעה או פעולה נוספת בהתאם לדרישות
   const visitorContainer = document.getElementById("visitor-container");
   const message = document.createElement("p");
-  message.textContent = "no aviable visitors";
+  message.textContent = "No available visitors";
   visitorContainer.appendChild(message);
 }
 
 function createVisitorCard(visitor) {
   const visitorContainer = document.getElementById("visitor-container");
-  const card = document.createElement("div");
+  if (!visitorContainer) return; // ודא קיום של הקונטיינר לפני הוספת הכרטיסייה
 
+  const card = document.createElement("div");
   card.classList.add("visitor-card");
 
   const name = document.createElement("h2");
   name.textContent = visitor.name;
 
   const coins = document.createElement("p");
-  coins.textContent = `coins: ${visitor.coins}`;
+  coins.textContent = `Coins: ${visitor.coins}`;
 
   const image = document.createElement("img");
   image.src = "ash katcham.jpg";
+
   card.appendChild(name);
   card.appendChild(coins);
   card.appendChild(image);
@@ -60,12 +62,18 @@ function search() {
     }
   });
 }
+
 // בדיקה אם כבר קיים אורח נבחר
 const selectedVisitor = localStorage.getItem("selectedVisitor");
 if (selectedVisitor) {
   // אם כבר קיים אורח נבחר, הצג הודעת אזהרה
   const selectedGuestMessage = document.getElementById("selectedGuestMessage");
-  selectedGuestMessage.style.display = "block";
+  if (selectedGuestMessage) {
+    selectedGuestMessage.style.display = "block";
+  }
 } else {
-  electedGuestMessage.style.display = "none";
+  const selectedGuestMessage = document.getElementById("selectedGuestMessage");
+  if (selectedGuestMessage) {
+    selectedGuestMessage.style.display = "none";
+  }
 }

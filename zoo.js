@@ -12,20 +12,31 @@ animals.forEach((animal) => {
   // השתמש בשם החיה כדי למצוא את התמונה המתאימה, או הגדר כאן את מסלול התמונה
   image.src = `${animal.name.toLowerCase()}.jpg`; // הנחה ששמות הקבצים תואמים לשמות החיות
   image.alt = `${animal.name} image`;
-  const detailsButton = document.createElement("button");
-  detailsButton.textContent = "View Details";
-  card.appendChild(detailsButton);
+
   card.appendChild(name);
   card.appendChild(image);
 
   animalCardsContainer.appendChild(card);
+
+  card.addEventListener("click", () => {
+    loginAsAnimal(animal.name);
+  });
 });
+
+function loginAsAnimal(animalName) {
+  localStorage.setItem("selectedAnimal", animalName);
+  window.location.href = "animal.html";
+}
 document.querySelectorAll(".animal-card button").forEach((button) => {
   button.addEventListener("click", function () {
     const animalName = this.parentNode.querySelector("h2").textContent;
     window.location.href = `animal.html?name=${encodeURIComponent(animalName)}`;
   });
 });
+function loginAsAnimal(animalName) {
+  localStorage.setItem("selectedAnimal", animalName);
+  window.location.href = `animal.html?name=${encodeURIComponent(animalName)}`;
+}
 
 const search = () => {
   // Get the search input value and convert it to uppercase for case-insensitive comparison
@@ -105,7 +116,7 @@ if (selectedVisitor) {
   if (selectedUser) {
     const navHTML = `
       <span>Hello Visitor: ${selectedUser.name} </span>
-      <span>Your coin balance:  ${selectedUser.coins}</span>
+      <span>Your coin balance: 🪙 ${selectedUser.coins}</span>
     `;
     selectedUserInfo.innerHTML = navHTML;
   }
@@ -149,9 +160,16 @@ document.addEventListener("DOMContentLoaded", function () {
       const navHTML = `
               <span>Hello Visitor: ${selectedUser.name}</span>
             
-              <span>Your coin balance:  ${selectedUser.coins}</span>
+              <span>Your coin balance: 🪙 ${selectedUser.coins}</span>
           `;
       selectedUserInfo.innerHTML = navHTML;
     }
   }
 });
+function updateCoinsInNav(coins) {
+  const selectedUserInfo = document.getElementById("selectedUserInfo");
+  selectedUserInfo.innerHTML = `
+    <span>Hello Visitor: ${localStorage.getItem("selectedVisitor")} </span>
+    <span>Your coin balance: 🪙 ${coins}</span>
+  `;
+}

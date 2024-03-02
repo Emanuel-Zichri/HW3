@@ -356,3 +356,40 @@ h1 {
   font-family: "Pokemon Solid", sans-serif; /* השוואת הפונט של הדף */
   font-size: 16px; /* הוספת גודל פונט */
 }
+/* CSS עבור המודאל */
+.modal {
+  display: none; /* נסתר ברירת מחדל */
+  position: fixed;
+  z-index: 1; /* על כל אלמנטים אחרים */
+  left: 0;
+  top: 0;
+  width: 100%; /* רוחב כולל */
+  height: 100%; /* גובה כולל */
+  overflow: auto; /* גלילה */
+  background-color: rgb(0, 0, 0); /* רקע שחור */
+  background-color: rgba(0, 0, 0, 0.4); /* רקע שחור עם שקיפות */
+}
+
+/* תוכן המודאל */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% מלמטה ומלמעלה, רוחב קבוע */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* 80% מהרוחב של המסך */
+}
+
+/* סגירת כפתור המודאל */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
