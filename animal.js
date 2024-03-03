@@ -106,7 +106,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (selectedUser) {
       const navHTML = `
               <span>Hello Visitor: ${selectedUser.name}</span>
-              <span>Your coin balance:  ${selectedUser.coins}</span>
+              <span>Your coin balance: 🪙 ${selectedUser.coins}</span>
           `;
       selectedUserInfo.innerHTML = navHTML;
     }
@@ -117,9 +117,16 @@ document.getElementById("feed-animal").addEventListener("click", feedAnimal);
 
 function visitorGotEaten() {
   localStorage.removeItem("visitor");
-  alert("You have been attacked by the animal!");
-  window.location.href = "signup.html";
-  location.reload();
+
+  const insufficientCoinsModal = document.getElementById(
+    "insufficientCoinsModal"
+  );
+
+  // הגדר את סגנון התצוגה שלו ל-"block" כדי להציג אותו
+  insufficientCoinsModal.style.display = "block";
+
+  // window.location.href = "signup.html";
+  // location.reload();
 }
 
 document.getElementById("feed-animal").addEventListener("click", feedAnimal);
@@ -248,3 +255,12 @@ closeEscapeModalButton.addEventListener("click", function () {
   window.location.href = "zoo.html"; // מעבר לעמוד "zoo"
 });
 updateCoinsInNav(coinsAfter);
+// ברגע שהעמוד נטען, נבצע רענון פעם אחת
+window.onload = function () {
+  if (!sessionStorage.getItem("reloaded")) {
+    sessionStorage.setItem("reloaded", "true");
+    location.reload(true);
+  } else {
+    sessionStorage.removeItem("reloaded");
+  }
+};

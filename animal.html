@@ -22,6 +22,14 @@
         <button id="resetButton" class="btn-nav">Clear</button>
       </div>
     </nav>
+    <div class="sidebar">
+      <div class="nav-buttons">
+        <a href="login.html" class="btn-nav">Login</a>
+        <a href="signup.html" class="btn-nav">Signup</a>
+        <a href="zoo.html" class="btn-nav">Zoo</a>
+        <a href="dashboard.html" class="btn-nav">Dashboard</a>
+      </div>
+    </div>
     <div>
       <div id="image">
         <!-- show here the animal image -->
@@ -42,15 +50,17 @@
     <div id="thankYouModal" class="modal">
       <div class="modal-content">
         <span id="closeModalButton" class="close">&times;</span>
-        <p>Thank you for feeding the animal!</p>
+        <p>Thank you for feeding the me!</p>
+        <p>🪙 -2</p>
       </div>
     </div>
 
     <!-- Modal for animal escaping -->
     <div id="animalEscapeModal" class="modal">
       <div class="modal-content">
-        <p>The animal has escaped from the zoo!</p>
-        <button id="closeEscapeModalButton" class="close">close</button>
+        <p>You don't have enough coins, The animal has escaped from the zoo!</p>
+        <p>So irresponsible of you! 🙄</p>
+        <button id="closeEscapeModalButton" class="btn-nav">close</button>
       </div>
     </div>
 
@@ -60,14 +70,13 @@
         <span id="closeInsufficientCoinsModalButton" class="close"
           >&times;</span
         >
-        <p>You don't have enough coins. The animal will attack you!</p>
+        <p>You don't have enough coins, The animal ate you!</p>
+        <p>You are delicious 😋</p>
+        <button id="closeEscapeModalButton" class="btn-nav">close</button>
       </div>
     </div>
 
     <script src="./main.js"></script>
     <script src="./animal.js"></script>
-    <script>
-      // Your JavaScript code here...
-    </script>
   </body>
 </html>

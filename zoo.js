@@ -173,3 +173,12 @@ function updateCoinsInNav(coins) {
     <span>Your coin balance: 🪙 ${coins}</span>
   `;
 }
+// ברגע שהעמוד נטען, נבצע רענון פעם אחת
+window.onload = function () {
+  if (!sessionStorage.getItem("reloaded")) {
+    sessionStorage.setItem("reloaded", "true");
+    location.reload(true);
+  } else {
+    sessionStorage.removeItem("reloaded");
+  }
+};
