@@ -23,7 +23,7 @@ body {
   width: 300px;
   padding: 20px;
   background-color: #f1db11;
-  border: 10px #1d1ded;
+  border: 10px #2d3750;
   border-radius: 10px;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
   margin-bottom: 150px;
@@ -84,14 +84,16 @@ body {
 .visitor-card {
   padding: 20px;
   background-color: #f1db11;
-  border: 10px solid #1d1ded;
+  border: 10px solid #2d3750;
   border-radius: 8px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
   margin: 10px;
   padding: 20px;
   width: 250px;
+  /* height: 450px; */
   transition: transform 0.3s ease;
 }
+
 .visitor-card:hover {
   transform: translateY(-5px);
 }
@@ -416,4 +418,28 @@ h1 {
 }
 .nav-buttons a {
   margin-bottom: 10px; /* הוספת מרווח בין כל כפתור */
+}
+#visitorNameInput {
+  background-color: #2d3750;
+  color: rgb(245, 221, 8);
+  font-family: "Pokemon Solid", sans-serif;
+  border-radius: 5px;
+  width: 300px;
+  height: 50px;
+}
+/* סגנון לפלייס הולדר */
+#visitorNameInput::placeholder {
+  color: rgb(245, 221, 8);
+}
+#disconnectButton {
+  padding: 10px 20px; /* הוספת מרווח בתוך הכפתור */
+  margin: 10px; /* הוספת מרווח בין הכפתור לאלמנטים אחרים */
+}
+.dashboard-container div {
+  background-color: #5c594e90;
+  border-radius: 10px;
+  width: 1000px;
+
+  text-align: center;
+  margin: 0 auto;
 }

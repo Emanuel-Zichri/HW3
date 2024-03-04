@@ -5,45 +5,88 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function displayVisitedAnimals() {
-    const visitedAnimals = loadDataFromLocalStorage("visited-animals");
-    const visitedAnimalsElement = document.getElementById("visited-animals");
-    visitedAnimalsElement.innerHTML = "<h2>Visited Animals</h2>";
-    visitedAnimals.forEach((animal) => {
-      visitedAnimalsElement.innerHTML += `<p>${animal}</p>`;
+    const currentVisitor = localStorage.getItem("selectedVisitor");
+    const actions = JSON.parse(localStorage.getItem("actions")) || [];
+    const visitsElement = document.getElementById("visited-animals");
+    if (!visitsElement) {
+      console.error("Visited animals element not found");
+      return;
+    }
+    let html = "<h2>Visited Animals</h2>";
+    actions.forEach((action) => {
+      if (action.type === "visit" && action.visitorId === currentVisitor) {
+        html += `<p>You visited ${action.animalId} on ${action.timestamp}</p>`;
+      }
     });
+    visitsElement.innerHTML = html;
   }
 
   function displayFeededAnimals() {
-    const feededAnimals = loadDataFromLocalStorage("feeded-animals");
-    const feededAnimalsElement = document.getElementById("feeded-animals");
-    feededAnimalsElement.innerHTML = "<h2>Feeded Animals</h2>";
-    feededAnimals.forEach((animal) => {
-      feededAnimalsElement.innerHTML += `<p>${animal}</p>`;
-    });
-  }
-
-  function findFavoriteAnimal() {
-    const visitedAnimals = loadDataFromLocalStorage("visited-animals");
-    let animalCount = {};
-    visitedAnimals.forEach((animal) => {
-      animalCount[animal] = (animalCount[animal] || 0) + 1;
-    });
-    let maxVisits = 0;
-    let favoriteAnimal = null;
-    for (const animal in animalCount) {
-      if (animalCount[animal] > maxVisits) {
-        maxVisits = animalCount[animal];
-        favoriteAnimal = animal;
-      }
+    const currentVisitor = localStorage.getItem("selectedVisitor");
+    const actions = JSON.parse(localStorage.getItem("actions")) || [];
+    const visitsElement = document.getElementById("Feeded-animals");
+    if (!visitsElement) {
+      console.error("feeded animals element not found");
+      return;
     }
-    return favoriteAnimal;
+    let html = "<h2>Feeded Animals</h2>";
+    actions.forEach((action) => {
+      if (action.type === "feeding" && action.visitorId === currentVisitor) {
+        html += `<p>You feeded ${action.animalId} on ${action.timestamp}</p>`;
+      }
+    });
+    visitsElement.innerHTML = html;
   }
 
   function displayFavoriteAnimal() {
-    const favoriteAnimal = findFavoriteAnimal();
-    const favoriteAnimalElement = document.getElementById("favorite-animal");
-    favoriteAnimalElement.innerHTML = `<h2>Favorite Animal</h2><p>${favoriteAnimal}</p>`;
+    const currentVisitor = localStorage.getItem("selectedVisitor");
+    const actions = JSON.parse(localStorage.getItem("actions")) || [];
+    // ספירת כל הביקורים של האורח הנוכחי לכל חיה
+    const visitCounts = {};
+    for (const action of actions) {
+      if (action.type === "visit" && action.visitorId === currentVisitor) {
+        if (!visitCounts[action.animalId]) {
+          visitCounts[action.animalId] = 1;
+        } else {
+          visitCounts[action.animalId]++;
+        }
+      }
+    }
+    // מציאת החיה שביקרו אצלה הכי הרבה פעמים
+    let favoriteAnimalId = null;
+    let maxVisits = 0;
+    for (let animalId in visitCounts) {
+      if (visitCounts[animalId] > maxVisits) {
+        favoriteAnimalId = animalId;
+        maxVisits = visitCounts[animalId];
+      }
+    }
+
+    // הצגת החיה המועדפת
+    if (favoriteAnimalId) {
+      const favoriteAnimal = JSON.parse(localStorage.getItem("animals")).find(
+        (animal) => animal.name === favoriteAnimalId
+      );
+      if (favoriteAnimal) {
+        document.getElementById(
+          "favorite-animal"
+        ).innerHTML = `<h2>Favorite Animal</h2><p>${favoriteAnimal.name}</p>`;
+      } else {
+        document.getElementById(
+          "favorite-animal"
+        ).innerHTML = `<h2>Favorite Animal</h2><p>The animal escape because of you!🙄</p>`;
+      }
+    } else {
+      document.getElementById(
+        "favorite-animal"
+      ).innerHTML = `<h2>Favorite Animal</h2><p>No favorite animal</p>`;
+    }
   }
+
+  // קריאה לפונקציה כאשר העמוד נטען
+  document.addEventListener("DOMContentLoaded", function () {
+    displayFavoriteAnimal();
+  });
 
   displayVisitedAnimals();
   displayFeededAnimals();

@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
     alert("Animal not found");
     return;
   }
+  recordVisit("visit", animal.name);
 
   // עדכן את ה-DOM עם פרטי החיה
   updateAnimalDetails(animal);
@@ -63,7 +64,7 @@ if (selectedVisitor) {
   if (selectedUser) {
     const navHTML = `
           <span>Hello Visitor: ${selectedUser.name} </span>
-          <span>Your coin balance:  ${selectedUser.coins}</span>
+          <span>Your coin balance: 🪙 ${selectedUser.coins}</span>
       `;
     selectedUserInfo.innerHTML = navHTML;
   }
@@ -130,7 +131,7 @@ function visitorGotEaten() {
 }
 
 document.getElementById("feed-animal").addEventListener("click", feedAnimal);
-
+// const coins = localStorage.getItem("selectedVisitor.coins");
 document.addEventListener("click", function () {
   if (!localStorage.getItem("coins")) {
     localStorage.setItem("coins", 50);
@@ -153,12 +154,13 @@ function feedAnimal() {
     (animal) => animal.name.toLowerCase() === animalName.toLowerCase()
   );
 
-  if (coinsBefore >= 2) {
+  if (selectedUser.coins >= 2) {
     // עדכון מספר המטבעות שנותר למשתמש המחובר
     const updatedUser = { ...selectedUser, coins: selectedUser.coins - 2 };
     const updatedVisitorsData = visitorsData.map((visitor) =>
       visitor.name === selectedVisitor ? updatedUser : visitor
     );
+    recordVisit("feeding", animal.name);
     localStorage.setItem("visitors", JSON.stringify(updatedVisitorsData));
 
     // עדכון מספר המטבעות ב-LocalStorage
@@ -230,9 +232,13 @@ window.addEventListener("click", function (event) {
 
 function updateCoinsInNav(coins) {
   const selectedUserInfo = document.getElementById("selectedUserInfo");
+  const selectedVisitor = localStorage.getItem("selectedVisitor");
+  const selectedUserCoins = JSON.parse(localStorage.getItem("visitors")).find(
+    (visitor) => visitor.name === selectedVisitor
+  ).coins;
   selectedUserInfo.innerHTML = `
-      <span>Hello Visitor: ${localStorage.getItem("selectedVisitor")} </span>
-      <span>Your coin balance: 🪙 ${coins}</span>
+    <span>Hello Visitor: ${selectedVisitor} </span>
+    <span>Your coin balance: 🪙 ${selectedUserCoins}</span>
   `;
 }
 function removeUserFromLocalStorage() {
@@ -254,13 +260,20 @@ const closeEscapeModalButton = document.getElementById(
 closeEscapeModalButton.addEventListener("click", function () {
   window.location.href = "zoo.html"; // מעבר לעמוד "zoo"
 });
-updateCoinsInNav(coinsAfter);
-// ברגע שהעמוד נטען, נבצע רענון פעם אחת
-window.onload = function () {
-  if (!sessionStorage.getItem("reloaded")) {
-    sessionStorage.setItem("reloaded", "true");
-    location.reload(true);
-  } else {
-    sessionStorage.removeItem("reloaded");
-  }
-};
+
+function recordVisit(actionType, animalName) {
+  let actions = JSON.parse(localStorage.getItem("actions")) || [];
+  actions.push({
+    visitorId: localStorage.getItem("selectedVisitor"),
+    animalId: animalName,
+    type: actionType,
+    timestamp: new Date().toISOString(),
+  });
+  localStorage.setItem("actions", JSON.stringify(actions));
+}
+const closeinsufficientCoinsModal = document.getElementById(
+  "closeInsufficientCoinsModalButton"
+);
+closeInsufficientCoinsModalButton.addEventListener("click", function () {
+  window.location.href = "login.html";
+});
