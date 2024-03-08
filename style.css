@@ -345,9 +345,9 @@ h1 {
   border: none;
   cursor: pointer;
   border-radius: 7px;
-  position: absolute;
-  top: 90%;
-  left: 50%;
+  position: relative;
+  top: -20%;
+  left: 3%;
   transform: translate(-50%, -50%);
   background-color: #2d3750;
   color: rgb(245, 221, 8);

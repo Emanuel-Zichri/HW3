@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const params = new URLSearchParams(window.location.search);
   const animalName = params.get("name");
 
-  // קרא את הנתונים מ-LocalStorage
+  // קרא את הנתונים מהלוקל סטורג
   const animals = JSON.parse(localStorage.getItem("animals"));
   if (!animals) {
     alert("Animals data not found in LocalStorage");
@@ -18,7 +18,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }
   recordVisit("visit", animal.name);
 
-  // עדכן את ה-DOM עם פרטי החיה
   updateAnimalDetails(animal);
 });
 
@@ -159,7 +158,7 @@ function feedAnimal() {
     recordVisit("feeding", animal.name);
     localStorage.setItem("visitors", JSON.stringify(updatedVisitorsData));
 
-    // עדכון מספר המטבעות ב-LocalStorage
+    // עדכון מספר המטבעות בלוקל
     localStorage.setItem("coins", coinsBefore - 2);
 
     const coinsAfter = coinsBefore - 2;
@@ -191,7 +190,7 @@ function feedAnimal() {
   }
 }
 
-// סגירת המודל כאשר לוחצים על כפתור הסגירה (X)
+// סגירת המודל כאשר לוחצים על כפתור הסגירה
 const closeModalButton = document.getElementById("closeModalButton");
 closeModalButton.addEventListener("click", function () {
   const thankYouModal = document.getElementById("thankYouModal");
