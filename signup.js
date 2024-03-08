@@ -21,16 +21,7 @@ function createNewVisitor(event) {
   function clearForm() {
     document.getElementById("create-visitor-form").reset();
   }
-  //vist = JSON.parse(visitorsarray);
-  // console.log(vist);
-  // vist.push(newVisitor);.p
 
-  // visitors.push(newVisitor);
-
-  // local storage:
-
-  // visitors.push(JSON.parse(localStorage.getItem("visitors")));
-  //console.log(newVisitor);
   //העברה לעמוד התחברות
   window.location.href = "/login.html";
 

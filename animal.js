@@ -125,13 +125,9 @@ function visitorGotEaten() {
 
   // הגדר את סגנון התצוגה שלו ל-"block" כדי להציג אותו
   insufficientCoinsModal.style.display = "block";
-
-  // window.location.href = "signup.html";
-  // location.reload();
 }
 
 document.getElementById("feed-animal").addEventListener("click", feedAnimal);
-// const coins = localStorage.getItem("selectedVisitor.coins");
 document.addEventListener("click", function () {
   if (!localStorage.getItem("coins")) {
     localStorage.setItem("coins", 50);
@@ -209,7 +205,7 @@ window.addEventListener("click", function (event) {
     thankYouModal.style.display = "none";
   }
 });
-// סגירת המודל "מטבעות לא מספיקים" כאשר לוחצים על כפתור הסגירה (X)
+
 const closeInsufficientCoinsModalButton = document.getElementById(
   "closeInsufficientCoinsModalButton"
 );
@@ -277,3 +273,49 @@ const closeinsufficientCoinsModal = document.getElementById(
 closeInsufficientCoinsModalButton.addEventListener("click", function () {
   window.location.href = "login.html";
 });
+
+const animals = JSON.parse(localStorage.getItem("animals"));
+const animalCardsContainer = document.getElementById("animal-cards");
+
+document.addEventListener("DOMContentLoaded", function () {
+  const params = new URLSearchParams(window.location.search);
+  const animalName = params.get("name");
+
+  const animal = animals.find(
+    (animal) => animal.name.toLowerCase() === animalName.toLowerCase()
+  );
+  if (!animal) {
+    alert("Animal not found");
+    return;
+  }
+
+  const animalsInSameHabitat = animals.filter(
+    (a) => a.habitat === animal.habitat && a.name !== animalName
+  );
+
+  animalsInSameHabitat.forEach((animal) => {
+    const card = document.createElement("div");
+    card.className = "animal-card";
+
+    const name = document.createElement("h2");
+    name.textContent = animal.name;
+
+    const image = document.createElement("img");
+    image.src = `${animal.name.toLowerCase()}.jpg`;
+    image.alt = `${animal.name} image`;
+
+    card.appendChild(name);
+    card.appendChild(image);
+
+    animalCardsContainer.appendChild(card);
+
+    card.addEventListener("click", () => {
+      loginAsAnimal(animal.name);
+    });
+  });
+});
+
+function loginAsAnimal(animalName) {
+  localStorage.setItem("selectedAnimal", animalName);
+  window.location.href = `animal.html?name=${encodeURIComponent(animalName)}`;
+}

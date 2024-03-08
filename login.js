@@ -81,6 +81,6 @@ const disconnectButton = document.getElementById("disconnectButton");
 if (disconnectButton) {
   disconnectButton.addEventListener("click", () => {
     localStorage.removeItem("selectedVisitor");
-    window.location.href = "login.html"; // Redirect to the login page after disconnecting
+    window.location.href = "login.html";
   });
 }

@@ -39,25 +39,17 @@ function loginAsAnimal(animalName) {
 }
 
 const search = () => {
-  // Get the search input value and convert it to uppercase for case-insensitive comparison
   const searchInput = document
     .getElementById("searchInput")
     .value.toUpperCase();
-
-  // Get all animal cards
   const animalCards = document.querySelectorAll(".animal-card");
 
-  // Loop through each animal card
   animalCards.forEach((card) => {
-    // Get the animal name from the h2 element in the current card
     const animalName = card.querySelector("h2").textContent.toUpperCase();
 
-    // Check if the search term is found in the animal name
     if (animalName.includes(searchInput)) {
-      // If found, display the card
       card.style.display = "";
     } else {
-      // If not found, hide the card
       card.style.display = "none";
     }
   });
@@ -67,33 +59,29 @@ const filterAnimals = () => {
   const heightFilter = document.getElementById("heightFilter").value;
   const colorFilter = document
     .getElementById("colorFilter")
-    .value.toUpperCase(); // Convert to uppercase for case-insensitive comparison
+    .value.toUpperCase();
   const habitatFilter = document.getElementById("habitatFilter").value;
 
   const animalCards = document.querySelectorAll(".animal-card");
 
   animalCards.forEach((card) => {
     const animalName = card.querySelector("h2").textContent;
-    const animal = animals.find((animal) => animal.name === animalName); // Assuming 'animals' is accessible here
+    const animal = animals.find((animal) => animal.name === animalName);
 
-    let matchesFilter = true; // Assume the animal matches the filter unless a check fails
+    let matchesFilter = true;
 
-    // Filter by weight if a weight filter is provided
     if (weightFilter && animal.weight != weightFilter) {
       matchesFilter = false;
     }
 
-    // Filter by height if a height filter is provided
     if (heightFilter && animal.height != heightFilter) {
       matchesFilter = false;
     }
 
-    // Filter by color if a color filter is provided
     if (colorFilter && animal.color.toUpperCase() != colorFilter) {
       matchesFilter = false;
     }
 
-    // Filter by habitat if a habitat filter is selected other than 'all'
     if (
       habitatFilter !== "all" &&
       animal.habitat.toLowerCase() != habitatFilter
@@ -101,7 +89,6 @@ const filterAnimals = () => {
       matchesFilter = false;
     }
 
-    // Show or hide the card based on whether it matches the filters
     card.style.display = matchesFilter ? "" : "none";
   });
 };
@@ -173,12 +160,3 @@ function updateCoinsInNav(coins) {
     <span>Your coin balance: 🪙 ${coins}</span>
   `;
 }
-// ברגע שהעמוד נטען, נבצע רענון פעם אחת
-window.onload = function () {
-  if (!sessionStorage.getItem("reloaded")) {
-    sessionStorage.setItem("reloaded", "true");
-    location.reload(true);
-  } else {
-    sessionStorage.removeItem("reloaded");
-  }
-};

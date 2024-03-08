@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function () {
       } else {
         document.getElementById(
           "favorite-animal"
-        ).innerHTML = `<h2>Favorite Animal</h2><p>The animal escape because of you!🙄</p>`;
+        ).innerHTML = `<h2>Favorite Animal</h2><p>The animal escape form the Pokimon-Zoo because of you!🙄</p>`;
       }
     } else {
       document.getElementById(
